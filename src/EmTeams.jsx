@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Team from "./team";
+import NewTeamBtn from "./newTeamBtn";
 
 export default function EmTeams() {
   const [emTeams, setEmTeams] = useState([
@@ -8,30 +10,14 @@ export default function EmTeams() {
     "Schottland",
   ]);
 
-  const deleteTeam = (index) => {
-    const newTeams = [...emTeams];
-
-    newTeams.splice(index, 1);
-
-    console.log(newTeams);
-    console.log(index + "geklickt");
-
-    setEmTeams(newTeams);
-  };
-
   const divTeams = emTeams.map((team, index) => (
-    <div key={index}>
-      {team}
-      <button onClick={() => deleteTeam(index)}>X</button>
-    </div>
+   <Team key={index} index={index} team={team} emTeams={emTeams} setEmTeams={setEmTeams} />
   ));
 
   return (
     <>
       {divTeams}
-      <button onClick={() => setEmTeams([...emTeams, "Belgien"])}>
-        Neues Land
-      </button>
+      <NewTeamBtn setEmTeams={setEmTeams} emTeams={emTeams} />
     </>
   );
 }
