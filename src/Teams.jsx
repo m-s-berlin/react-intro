@@ -1,31 +1,39 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import TeamCard from "./TeamCard";
 import TeamBtnNew from "./TeamBtnNew";
 import TeamSearch from "./TeamSearch";
 
 export default function EmTeams() {
   const [emTeams, setEmTeams] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
+  useEffect(() => {   // lädt daten in den state nach dem ersten render
     setTimeout(
       () => setEmTeams(["Deutschland", "Schweiz", "Ungarn", "Schottland"]),
-      4000
+      2000
     );
   }, []);
 
-  const divTeams = emTeams.map((team, index) => (
+  const filteredTeams = useMemo(() => { // wird bei änderung der searchTerm variable neu berechnet
+    console.log("useMemo() called");
+
+    return emTeams.filter((team) => team.toLowerCase().includes(searchTerm.toLowerCase()));
+  }, [searchTerm, emTeams]);
+
+  const divTeams = filteredTeams.map((team, index) => (
     <TeamCard
       key={index}
       index={index}
       team={team}
       emTeams={emTeams}
       setEmTeams={setEmTeams}
+      // {...team}
     />
   ));
 
   return (
     <div>
-      <TeamSearch emTeams={emTeams} />
+      <TeamSearch setSearchTerm={setSearchTerm} />
       {emTeams.length ? (
         <div>{divTeams}</div>
       ) : (

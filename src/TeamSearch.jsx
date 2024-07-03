@@ -1,9 +1,12 @@
-import { useState } from "react";
+export default function TeamSearch({ setSearchTerm }) {
+  //   console.log(filteredTeams, searchTerm);
 
-export default function TeamSearch({ emTeams }) {
-    const [searchTerm, setSearchTerm] = useState("");
-
-    return (
-        <input placeholder="search..." onChange={(event) => {searchTeam(event.target.value)}}/>
-    )
+  return (
+    <input
+      placeholder="search..."
+      onChange={(event) => {
+        setSearchTerm(event.target.value);
+      }}
+    />
+  );
 }

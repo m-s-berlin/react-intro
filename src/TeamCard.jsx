@@ -6,10 +6,7 @@ export default function Team({ index, emTeams, setEmTeams, team }) {
   const deleteTeam = () => {
     const newTeams = [...emTeams];
 
-    const deletedTeam = newTeams.splice(index, 1);
-
-    console.log(newTeams);
-    console.log(deletedTeam + " geklickt");
+    newTeams.splice(index, 1);
 
     setEmTeams(newTeams);
   };
@@ -17,7 +14,6 @@ export default function Team({ index, emTeams, setEmTeams, team }) {
   const updateTeam = (teamNeu) => {
     const newTeams = [...emTeams];
     newTeams[index] = teamNeu;
-    console.log(teamNeu);
     setEmTeams(newTeams);
   };
 
