@@ -5,7 +5,7 @@ function App() {
 
   return (
     <>
-      <h1>Em Teams</h1>
+      <h1>EM Teams</h1>
       <div className="card">
         <EmTeams></EmTeams>
       </div>

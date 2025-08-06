@@ -7,7 +7,8 @@ export default function NewTeamBtn() {
   const { addEmTeam } = useContext(Context);
 
   const addTeamAndClear = () => {
-    addEmTeam(refTeam.current.value);
+    const teamNew = { name: refTeam.current.value }
+    addEmTeam(teamNew);
     refTeam.current.value = "";
   };
 

@@ -1,17 +1,17 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { Context } from "../store/Provider";
 
-export default function Team({ index, team }) {
+export default function TeamCard({ index, team }) {
   const [editMode, setEditMode] = useState(false);
 
   const { deleteTeam, updateTeam } = useContext(Context);
 
   const refInput = useRef();
 
-  const toggleEditandFocus = () => {
-    setEditMode(!editMode);
-    // TODO: focus input element
-  };
+  const updateTeamAndToggleEdit = () => {
+    updateTeam(refInput.current.value, team._id)
+    setEditMode(!editMode)
+  }
 
   useEffect(() => {
     editMode && refInput.current.focus();
@@ -22,14 +22,13 @@ export default function Team({ index, team }) {
       {editMode ? (
         <input
           ref={refInput}
-          onKeyDown={(event) => event.key === "Enter" && setEditMode(!editMode)}
-          value={team}
-          onChange={(event) => updateTeam(event.target.value, index)}
+          onKeyDown={(event) => event.key === "Enter" && updateTeamAndToggleEdit()}
+          defaultValue={team.name}
         />
       ) : (
-        <span onDoubleClick={toggleEditandFocus}>{team}</span> // FUNKTIONIERT NOCH NICHT
+        <span onDoubleClick={() => setEditMode(!editMode)}>{team.name}</span>
       )}
-      <button onClick={() => deleteTeam(index)}>X</button>
+      <button onClick={() => deleteTeam(team._id)}>X</button>
     </div>
   );
 }
